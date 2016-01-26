@@ -1,5 +1,8 @@
 ## Changelog
 
+## VERSION 2.2.2
+* Integrated Android Publisher SDK v3.3.4
+
 ## VERSION 2.2.1
 * Integrated Android Publisher SDK v3.3.3
 * Added VersionInfo property to query current version of plug-in and SDK

@@ -9,8 +9,8 @@ Once you've created an account you can follow our [Getting Started for Corona Gu
 * Ads will not work in the Corona simulator. You will need to build to a device to test our ads.
 
 ## Release Notes
-### VERSION 2.2.3
-* Integrated Android Publisher SDK v3.3.5
+### VERSION 2.2.4
+* Integrated iOS Publisher SDK v3.2.1
 
 ## License
 The Vungle Corona Plugin is available under a commercial license. See the LICENSE file for more info.

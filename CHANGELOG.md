@@ -1,5 +1,8 @@
 ## Changelog
 
+## VERSION 2.2.18
+* Integrated iOS Publisher SDK v4.1.0
+
 ## VERSION 2.2.17
 * Integrated iOS Publisher SDK v4.0.9
 

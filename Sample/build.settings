@@ -1,40 +1,42 @@
-  -- Supported values for orientation:
+-- Supported values for orientation:
 -- portrait, portraitUpsideDown, landscapeLeft, landscapeRight
 
 settings = {
-	
-	orientation = {
-		default = "portrait"
-	},
-	
-	iphone = {
-		plist = {
-			UIStatusBarHidden = false,
-			UIPrerenderedIcon = true, -- set to false for "shine" overlay
-
-
-		}
-	},
+  
+  orientation = {
+    default = "portrait"
+  },
+  
+  iphone = {
+    plist = {
+      UIStatusBarHidden = false,
+      UIPrerenderedIcon = true, -- set to false for "shine" overlay
+    }
+  },
         
-        plugins = {
-                -- Add this to use Vungle
-                ["CoronaProvider.ads.vungle"] =
-                {
-                    publisherId = "com.vungle",
-                },
-                -- Add this if targeting Android and using
-                -- Corona SDK version 2014.2264 or greater
-                ["plugin.google.play.services"] = {
-                        publisherId = "com.coronalabs"
-                },
-        },  
-	
-	--[[
-	-- Android permissions
+    plugins = {
+        --[[
+        -- For production, Vungle SDK is obtained from Corona server
+        ["CoronaProvider.ads.vungle"] =
+        {
+            publisherId = "com.vungle",
+        },
+        ]]--
 
-	androidPermissions = {
-  		"android.permission.INTERNET",
-  	},
+        -- For v5.0 BETA, Vungle SDK is self hosted on Vungle server
+        ["CoronaProvider.ads.vungle"] = {
+            publisherId = "com.vungle",
 
-	]]--
+            supportedPlatforms = {
+                iphone = { url="https://s3.amazonaws.com/vvv-releases/corona/VungleCoronaiOS-2.2.19.tgz" },
+                android = { url="https://s3.amazonaws.com/vvv-releases/corona/VungleCoronaAndroid-2.2.19.tgz" },
+                macos = false,
+                win32 = false
+            },
+        },
+
+        ["plugin.google.play.services"] = {
+            publisherId = "com.coronalabs"
+        },
+    }, 
 }

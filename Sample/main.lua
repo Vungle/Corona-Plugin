@@ -20,15 +20,15 @@ local margin = 10
 placements = {}
 
 if (platform == "Android") then
-appData = {
-appID="591236625b2480ac40000028",
-placements={"DEFAULT18080","PLMT02I58745","PLMT03R02739"}
-}
+    appData = {
+        appID="592754a11cb660c05500000b",
+        placements={"DEFAULT62446","PLACEME67081","PLACEME06478"}
+    }
 else
-appData = {
-appID="5912326f0e96c1a540000014",
-placements={"DEFAULT63997","PLMT02I58266","PLMT03R65406"}
-}
+    appData = {
+        appID="592757da73883d212c00000b",
+        placements={"DEFAULT34708","PLACEME99234","PLACEME40182"}
+    }
 end
 display.setStatusBar( display.HiddenStatusBar )
 display.setDefault( "background", 0.5 )

@@ -1,174 +1,122 @@
 local widget = require( "widget" )
 
+-- Import for Vungle ads
 local ads = require "ads"
+
+-- Change this to your App ID. You will need
+-- separate App IDs for Android and iOS:
+--local appID = "Test_Android"
+local appID = "Test_iOS"
 
 _H = display.contentHeight
 _W = display.contentWidth
 
-platform = system.getInfo( "platformName" )
-local eh = 30
-local fontSize = 20
-if ("Android" == platform) then
-    eh = _H/15
-    fontSize = eh/2
-end
-local ew = display.contentWidth - 20
-local pos = 30
---platform = "Android"
-
-local margin = 10
-placements = {}
-
-if (platform == "Android") then
-appData = {
-appID="591236625b2480ac40000028",
-placements={"DEFAULT18080","PLMT02I58745","PLMT03R02739"}
-}
-else
-appData = {
-appID="5912326f0e96c1a540000014",
-placements={"DEFAULT63997","PLMT02I58266","PLMT03R65406"}
-}
-end
+-- We recommend hiding the status bar so our
+-- full-screen videos are not obstructed
 display.setStatusBar( display.HiddenStatusBar )
-display.setDefault( "background", 0.5 )
+display.setDefault( "background", 1 )
 
-main = display.newGroup()
+local vungleLogo = display.newImage( "images/vungleLogo.png" )
+vungleLogo:translate( _W / 3, 0 )
+local vungleLogo = display.newImage( "images/corona.jpg" )
+vungleLogo:translate( _W / 1.5, 0 )
 
-local function addButton(event, label, enable, y)
-    return widget.newButton {
-        onEvent = event,
-        label = label,
-        defaultFile = "buttonDefault.png",
-        overFile = "buttonSelected.png",
-        width = ew,
-        height = eh,
-        fontSize = fontSize,
-        isEnabled = enable,
-        x = _W / 2,
-        y = y
-    }
-end
-
-local function setEnabled(button, enabled)
-    if (enabled) then
-        button:setEnabled(true)
-        button:setFillColor(0.23, 0.5, 0.7)
-    else
-        button:setEnabled(false)
-        button:setFillColor(0.5, 0.5, 0.5)
+-- DEFAULT ADS:
+local function handleDefaultAdPlay( event )
+    if ( "ended" == event.phase ) then
+        ads.show( "interstitial" )
     end
 end
+local defaultAdButton = widget.newButton {
+    defaultFile = "images/sfSky.jpg",
+    onRelease = handleDefaultAdPlay,
+    -- While ads are caching, our buttons are disabled
+    -- and inform the user to please wait
+    label = "Please wait..",
+    labelColor = { default={ 255, 255, 255, 1.0 }, over={ 0, 0, 0, 0.5 } },
+    fontSize = 36,
+    isEnabled = false,
+    x = _W / 2,
+    y = _H / 6 + 35
+}
 
+-- INCENTIVIZED ADS:
+local function handleIncentivizedAdPlay( event )
+    if ( "ended" == event.phase ) then
+        -- On click, we call ads.show()
+        ads.show( "incentivized" )
+    end
+end
+local incentivizedAdButton = widget.newButton {
+    defaultFile = "images/berlinSky.jpg",
+    onRelease = handleIncentivizedAdPlay,
+    label = "a video should",
+    labelColor = { default={ 255, 255, 255, 1.0 }, over={ 0, 0, 0, 0.5 } },
+    fontSize = 36,
+    isEnabled = false,
+    x = _W / 2,
+    y = _H / 2 + 40
+}
+
+-- CUSTOM ADS:
+local function handleCustomAdPlay( event )
+    if ( "ended" == event.phase ) then
+        ads.show( "incentivized", { isAnimated = true, 
+                                    isAutoRotation = false,
+                                    orientations = UIInterfaceOrientationMaskLandscape,
+                                    isBackButtonEnabled = true,
+                                    isSoundEnabled = false,
+                                    -- username is used for incentivized ads
+                                    -- (so we know who to reward)
+                                    username = "someUsername123" })
+    end
+end
+local customAdButton = widget.newButton {
+    defaultFile = "images/londonSky.jpg",
+    onRelease = handleCustomAdPlay,
+    label = "be ready soon!",
+    labelColor = { default={ 255, 255, 255, 1.0 }, over={ 0, 0, 0, 0.5 } },
+    fontSize = 36,
+    isEnabled = false,
+    x = _W / 2,
+    y = _H / 1.2 + 45
+}
 -- AD EVENT LISTENER
 -- Set this up before ads.init
 local function vungleAdListener( event )
     if ( event.type == "adStart" and event.isError ) then
         -- Ad has not finished caching and will not play
     end
-    if ( event.type == "adLog") then
+    if ( event.type == "adStart" and not event.isError ) then
+        -- Ad will play
+        defaultAdButton:setLabel ( "Please wait.." )
+        defaultAdButton:setEnabled ( false )
+        incentivizedAdButton:setLabel ( "a video should" )
+        incentivizedAdButton:setEnabled ( false )
+        customAdButton:setLabel ( "be ready soon!" )
+        customAdButton:setEnabled ( false )
     end
-    if ( event.type == "adInitialize") then
-        setEnabled(loadButton2, true)
-        setEnabled(loadButton3, true)
+    if ( event.type == "cachedAdAvailable" ) then
+        -- Ad has finished caching and is ready to play
+        defaultAdButton:setLabel( "Play Default Ad" )
+        defaultAdButton:setEnabled( true )
+        incentivizedAdButton:setLabel ( "Play Incentivized Ad" )
+        incentivizedAdButton:setEnabled ( true )
+        customAdButton:setLabel ( "Play Custom Ad" )
+        customAdButton:setEnabled ( true )
     end
-    if ( event.type == "adAvailable" ) then
-        if (event.placementID == appData.placements[1]) then
-            setEnabled(playButton1, event.isAdPlayable)
-        end
-        if (event.placementID == appData.placements[2]) then
-            setEnabled(playButton2, event.isAdPlayable)
-        end
-        if (event.placementID == appData.placements[3]) then
-            setEnabled(playButton3, event.isAdPlayable)
-        end
+    if ( event.type == "adView" ) then
+        -- An ad has completed
     end
     if ( event.type == "adEnd" ) then
-    end
-    if ( event.type == "vungleSDKlog" ) then
-        print(event)
-        logText.text = event.message
+        -- The ad experience has been closed- this
+        -- is a good place to resume your app
     end
 end
 
-main:insert( display.newText( { text = "", x = _W/2, y = 0, font = native.systemFont, width = ew, height = eh, fontSize = fontSize, align = "center" } ) )
-local logo = display.newImageRect( main, "VungleLogo.png", ew/4, ew/4/200*81)
-logo.x, logo.y = _W/2, pos/1.7
-pos = pos + eh + margin
-main:insert( display.newText( { text = "App ID:" .. appData.appID, x = _W/2, y = pos, font = native.systemFont, width = ew, height = eh, fontSize = fontSize, align = "center" } ) )
-pos = pos + eh + margin
-local function handleInit( event )
-    if ( "ended" == event.phase ) then
-        ads.init("vungle", appData.appID .. "," .. appData.placements[1] .. "," .. appData.placements[2] .. "," .. appData.placements[3], vungleAdListener)
-    end
-end
+-- Do this as early as possible in your app
+-- An ad will begin caching on init and it can take
+-- up to 30 seconds before it is ready to play
+ads.init( "vungle", appID, vungleAdListener )
 
-local initButton = addButton(handleInit, "Init", true, pos)
-initButton:setFillColor(0.1, 0.5, 0.4)
-main:insert( initButton )
-pos = pos + eh + margin
-
---!!!!!!!1
-main:insert( display.newText( { text = "Placement1", x = _W/2, y = pos, font = native.systemFont, width = ew, height = eh, fontSize = fontSize, align = "center" } ) )
-pos = pos + eh + margin
-main:insert( display.newText( { text = "PlacementID: " .. appData.placements[1], x = _W/2, y = pos, font = native.systemFont, width = ew, height = eh, fontSize = fontSize, align = "center" } ) )
-pos = pos + eh + margin
-local function handlePlay1( event )
-    if ( "ended" == event.phase ) then
-    ads.show({
-        placementId = appData.placements[1],
-    })
-    end
-end
-playButton1 = addButton(handlePlay1, "Play Ad", false, pos)
-setEnabled(playButton1, false)
-main:insert( playButton1 )
-pos = pos + eh + margin
-
---!!!!!!!2
-main:insert( display.newText( { text = "Placement2", x = _W/2, y = pos, font = native.systemFont, width = ew, height = eh, fontSize = fontSize, align = "center" } ) )
-pos = pos + eh + margin
-main:insert( display.newText( { text = "PlacementID: " .. appData.placements[2], x = _W/2, y = pos, font = native.systemFont, width = ew, height = eh, fontSize = fontSize, align = "center" } ) )
-pos = pos + eh + margin
-local function handlePlay2( event )
-if ( "ended" == event.phase ) then
-ads.show({
-placementId = appData.placements[2],
-})
-end
-end
-playButton2 = addButton(handlePlay2, "Play Ad", false, pos)
-main:insert( playButton2 )
-setEnabled(playButton2, false)
-pos = pos + eh + margin
-local function handleLoad2( event )
-    ads.load(appData.placements[2])
-end
-loadButton2 = addButton(handleLoad2, "Load Ad", false, pos)
-setEnabled(loadButton2, false)
-main:insert( loadButton2 )
-pos = pos + eh + margin
-
---!!!!!!!3
-main:insert( display.newText( { text = "Placement3", x = _W/2, y = pos, font = native.systemFont, width = ew, height = eh, fontSize = fontSize, align = "center" } ) )
-pos = pos + eh + margin
-main:insert( display.newText( { text = "PlacementID: " .. appData.placements[3], x = _W/2, y = pos, font = native.systemFont, width = ew, height = eh, fontSize = fontSize, align = "center" } ) )
-pos = pos + eh + margin
-local function handlePlay3( event )
-if ( "ended" == event.phase ) then
-ads.show({
-placementId = appData.placements[3],
-})
-end
-end
-playButton3 = addButton(handlePlay3, "Play Ad", false, pos)
-setEnabled(playButton3, false)
-main:insert( playButton3 )
-pos = pos + eh + margin
-local function handleLoad3( event )
-ads.load(appData.placements[3])
-end
-loadButton3 = addButton(handleLoad3, "Load Ad", false, pos)
-setEnabled(loadButton3, false)
-main:insert( loadButton3 )
-pos = pos + eh + margin
+-- Your app logic here :)

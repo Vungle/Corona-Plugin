@@ -1,7 +1,7 @@
 # Vungle's Corona-Plugin
 
 ## Getting Started
-Please refer to WelcometoVunglePlacements.pdf
+Please refer to WelcometoVunglePlacements2017-06-12.pdf
 
 ## Release Notes
 ### VERSION 5.0.0

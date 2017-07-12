@@ -15,24 +15,10 @@ settings = {
   },
         
     plugins = {
-        --[[
+
         -- For production, Vungle SDK is obtained from Corona server
-        ["CoronaProvider.ads.vungle"] =
-        {
-            publisherId = "com.vungle",
-        },
-        ]]--
-
-        -- For v5.0 BETA, Vungle SDK is self hosted on Vungle server
-        ["CoronaProvider.ads.vungle"] = {
-            publisherId = "com.vungle",
-
-            supportedPlatforms = {
-                iphone = { url="https://s3.amazonaws.com/vvv-releases/corona/VungleCoronaiOS-2.2.19.tgz" },
-                android = { url="https://s3.amazonaws.com/vvv-releases/corona/VungleCoronaAndroid-2.2.19.tgz" },
-                macos = false,
-                win32 = false
-            },
+        ["plugin.vungle"] = {
+            publisherId = "com.vungle"
         },
 
         ["plugin.google.play.services"] = {

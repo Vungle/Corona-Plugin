@@ -1,6 +1,6 @@
 local widget = require( "widget" )
 
-local ads = require "ads"
+local ads = require "plugin.vungle"
 
 _H = display.contentHeight
 _W = display.contentWidth

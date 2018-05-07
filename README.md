@@ -1,7 +1,7 @@
 # Vungle's Corona-Plugin
 
 ## Getting Started
-Please refer to https://support.vungle.com/hc/en-us/articles/115000468771
+Please refer to https://support.vungle.com/hc/en-us/articles/360003413891
 
 ## Release Notes
 ### VERSION 6.2.0

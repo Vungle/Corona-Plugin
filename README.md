@@ -4,6 +4,13 @@
 Please refer to https://support.vungle.com/hc/en-us/articles/115000468771
 
 ## Release Notes
+### VERSION 6.2.0
+* Integrated Vungle iOS SDK 6.2.0
+* Integrated Vungle Android SDK 6.2.5
+
+### VERSION 5.4.0
+* Integrated Vungle iOS SDK 5.4.0
+
 ### VERSION 5.3.2
 * Integrated Vungle iOS SDK 5.3.2
 * Integrated Vungle Android SDK 5.3.2

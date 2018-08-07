@@ -132,8 +132,10 @@ main:insert( display.newText( { text = appData.placement1, x = _W/2, y = pos, fo
 pos = pos + eh + margin
 
 local function handlePlay1( event )
-    print("Play Ad: " .. tostring(appData.placement1))
-    ads.show( { placementId = appData.placement1 } )
+    if ( "ended" == event.phase ) then
+        print("Play Ad: " .. tostring(appData.placement1))
+        ads.show( { placementId = appData.placement1 } )
+    end
 end
 
 playButton1 = addButton(handlePlay1, "Play Ad", false, pos)

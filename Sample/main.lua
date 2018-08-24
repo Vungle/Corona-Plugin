@@ -77,8 +77,10 @@ local function vungleAdListener( event )
         print("adInitialize")
 
         -- Set GDPR consent status
-        -- ads.updateConsentStatus(1) -- Opted_in
-        -- ads.updateConsentStatus(2) -- Opted_out
+        -- ads.updateConsentStatus(1, "corona consent v1.0") -- Opted_in
+        -- ads.updateConsentStatus(2, "corona consent v1.0") -- Opted_out
+        -- status = vungle.getConsentStatus() -- Get consent status
+        -- consentVersionTxt = vungle.getConsentMessageVersion() -- Get consent version string
 
         setEnabled(loadButton2, true)
         setEnabled(loadButton3, true)

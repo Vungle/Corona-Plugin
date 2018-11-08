@@ -1,5 +1,37 @@
 ## Changelog
 
+## VERSION 6.3.0
+* Integrated iOS publisher SDK v6.3.0
+* Integrated Android publisher SDK v6.3.17
+* GDPR API change
+
+## VERSION 6.2.0
+* Integrated iOS publisher SDK v6.2.0
+* Integrated Android publisher SDK v6.2.5
+
+## VERSION 5.4.0
+* Integrated iOS publisher SDK v5.4.0
+
+## VERSION 5.3.2
+* Integrated iOS publisher SDK v5.3.2
+* Integrated Android publisher SDK v.5.3.2
+
+## VERSION 5.3.0
+* Integrated iOS publisher SDK v5.3.0
+* Integrated Android publisher SDK v5.3.0
+
+## VERSION 5.2.0
+* Integrated iOS publisher SDK v5.2.0
+
+## VERSION 5.1.1
+* Integrated iOS Publisher SDK v5.1.1
+
+## VERSION 5.1.0
+* Integrated Android Publisher SDK v5.1.0 and iOS Publisher SDK v5.1.0
+
+## VERSION 5.0.0
+* Integrated Android Publisher SDK v5.0.0 and iOS Publisher SDK v5.0.0
+
 ## VERSION 2.2.19
 * Integrated Android Publisher SDK v4.1.0
 

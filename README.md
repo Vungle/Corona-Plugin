@@ -1,16 +1,33 @@
 # Vungle's Corona-Plugin
 
 ## Getting Started
-To get up and running with Vungle, you'll need to [Create an Account With Vungle](https://v.vungle.com/dashboard) and [Add an Application to the Vungle Dashboard](https://support.vungle.com/hc/en-us/articles/210468678)
-
-Once you've created an account you can follow our [Getting Started for Corona Guide](https://support.vungle.com/hc/en-us/articles/204482060-Get-Started-with-Vungle-Corona) to complete the integration. Remember to get the Vungle App ID from the Vungle dashboard.
-
-### Requirements
-* Ads will not work in the Corona simulator. You will need to build to a device to test our ads.
+Please refer to https://support.vungle.com/hc/en-us/articles/360003413891
 
 ## Release Notes
-### VERSION 2.2.19
-* Integrated Android Publisher SDK v4.1.0
+### VERSION 6.3.0
+* Integrated Vungle iOS SDK 6.3.0
+* Integrated Vungle Android SDK 6.3.17
+
+### VERSION 6.2.0
+* Integrated Vungle iOS SDK 6.2.0
+* Integrated Vungle Android SDK 6.2.5
+
+### VERSION 5.4.0
+* Integrated Vungle iOS SDK 5.4.0
+
+### VERSION 5.3.2
+* Integrated Vungle iOS SDK 5.3.2
+* Integrated Vungle Android SDK 5.3.2
+
+### VERSION 5.3.0
+* Integrated Vungle iOS SDK 5.3.0
+* Integrated Vungle Android SDK 5.3.0
+
+### VERSION 5.2.0
+* Integrated Vungle iOS SDK 5.2.0
+
+### VERSION 5.1.1
+* Integrated Vungle iOS SDK 5.1.1
 
 ## License
 The Vungle Corona Plugin is available under a commercial license. See the LICENSE file for more info.

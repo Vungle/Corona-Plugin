@@ -2,7 +2,7 @@
 
 ## VERSION 6.3.0
 * Integrated iOS publisher SDK v6.3.0
-* Integrated Android publisher SDK v6.3.17
+* Integrated Android publisher SDK v6.3.24
 * GDPR API change
 
 ## VERSION 6.2.0

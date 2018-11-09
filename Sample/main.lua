@@ -118,7 +118,7 @@ pos = pos + eh + margin
 local function handleInit( event )
     print("Initializing...")
     if ( "ended" == event.phase ) then
-        ads.init("vungle", appData.appID .. "," .. appData.placement1 .. "," .. appData.placement2 .. "," .. appData.placement3, vungleAdListener)
+        ads.init("vungle", appData.appID, vungleAdListener)
     end
 end
 

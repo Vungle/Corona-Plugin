@@ -1,11 +1,6 @@
 local widget = require( "widget" )
 local ads = require ( "plugin.vungle" )
 
--- Change this to your App ID. You will need
--- separate App IDs for Android and iOS:
---local appID = "Test_Android"
-local appID = "Test_iOS"
-
 _H = display.contentHeight
 _W = display.contentWidth
 
@@ -40,66 +35,31 @@ display.setStatusBar( display.HiddenStatusBar )
 display.setDefault( "background", 0.5 )
 main = display.newGroup()
 
--- DEFAULT ADS:
-local function handleDefaultAdPlay( event )
-    if ( "ended" == event.phase ) then
-        ads.show( "interstitial" )
-    end
+local function addButton(event, label, enable, y)
+    return widget.newButton {
+        onEvent = event,
+        label = label,
+        defaultFile = "buttonDefault.png",
+        overFile = "buttonSelected.png",
+        width = ew,
+        height = eh,
+        fontSize = fontSize,
+        isEnabled = enable,
+        x = _W / 2,
+        y = y
+    }
 end
-local defaultAdButton = widget.newButton {
-    defaultFile = "images/sfSky.jpg",
-    onRelease = handleDefaultAdPlay,
-    -- While ads are caching, our buttons are disabled
-    -- and inform the user to please wait
-    label = "Please wait..",
-    labelColor = { default={ 255, 255, 255, 1.0 }, over={ 0, 0, 0, 0.5 } },
-    fontSize = 36,
-    isEnabled = false,
-    x = _W / 2,
-    y = _H / 6 + 35
-}
 
--- INCENTIVIZED ADS:
-local function handleIncentivizedAdPlay( event )
-    if ( "ended" == event.phase ) then
-        -- On click, we call ads.show()
-        ads.show( "incentivized" )
+local function setEnabled(button, enabled)
+    if (enabled) then
+        button:setEnabled(true)
+        button:setFillColor(0.23, 0.5, 0.7)
+    else
+        button:setEnabled(false)
+        button:setFillColor(0.5, 0.5, 0.5)
     end
 end
-local incentivizedAdButton = widget.newButton {
-    defaultFile = "images/berlinSky.jpg",
-    onRelease = handleIncentivizedAdPlay,
-    label = "a video should",
-    labelColor = { default={ 255, 255, 255, 1.0 }, over={ 0, 0, 0, 0.5 } },
-    fontSize = 36,
-    isEnabled = false,
-    x = _W / 2,
-    y = _H / 2 + 40
-}
 
--- CUSTOM ADS:
-local function handleCustomAdPlay( event )
-    if ( "ended" == event.phase ) then
-        ads.show( "incentivized", { isAnimated = true, 
-                                    isAutoRotation = false,
-                                    orientations = UIInterfaceOrientationMaskLandscape,
-                                    isBackButtonEnabled = true,
-                                    isSoundEnabled = false,
-                                    -- username is used for incentivized ads
-                                    -- (so we know who to reward)
-                                    username = "someUsername123" })
-    end
-end
-local customAdButton = widget.newButton {
-    defaultFile = "images/londonSky.jpg",
-    onRelease = handleCustomAdPlay,
-    label = "be ready soon!",
-    labelColor = { default={ 255, 255, 255, 1.0 }, over={ 0, 0, 0, 0.5 } },
-    fontSize = 36,
-    isEnabled = false,
-    x = _W / 2,
-    y = _H / 1.2 + 45
-}
 -- AD EVENT LISTENER
 -- Set this up before ads.init
 local function vungleAdListener( event )
